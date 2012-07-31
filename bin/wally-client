@@ -1,0 +1,33 @@
+#!/usr/bin/env ruby
+
+require 'rubygems' # ruby1.9 doesn't "require" it though
+require 'bundler'
+Bundler.setup
+require 'thor'
+require 'wally/commands'
+
+require 'yaml'
+require 'wally/config'
+
+Wally::Config.configure(YAML.load(File.read('wally.yml')))
+
+class WallyClientCommand < Thor
+  desc 'add_project NAME ', 'Add project'
+  def add_project(project)
+    Wally::Commands.add_project(project)
+  rescue Wally::ClientError => e
+    warn e.message
+    exit(1)
+  end
+
+  desc 'push PROJECT DIR', 'Push features from DIR to PROJECT'
+  def push(project, dir)
+    Wally::Commands.push(project, dir, options)
+  rescue Wally::ClientError => e
+    puts "client error"
+    warn e.message
+    exit(1)
+  end
+end
+
+WallyClientCommand.start
