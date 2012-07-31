@@ -5,7 +5,7 @@ require 'wally/commands'
 module Wally
   module Commands
     describe Push do
-      include FileIntegrationSupport
+      include ::FileIntegrationSupport
       
       let(:resource) { double('RestResource').as_null_object }
       let(:targz_util) { double('targz utility', :pack => 'data') }
