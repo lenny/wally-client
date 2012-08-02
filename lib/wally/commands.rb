@@ -1,5 +1,6 @@
 require 'wally/commands/push'
 require 'wally/commands/add_project'
+require 'wally/commands/remove_project'
 
 module Wally
   module Commands
@@ -10,6 +11,10 @@ module Wally
       
       def push(project, dir, options = {})
         Push.new(project, dir, options).execute
+      end
+      
+      def remove_project(project)
+        RemoveProject.new(project).execute
       end
     end
   end

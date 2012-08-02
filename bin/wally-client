@@ -14,19 +14,26 @@ Wally::Config.configure(YAML.load(File.read('wally.yml')))
 class WallyClientCommand < Thor
   desc 'add_project NAME ', 'Add project'
   def add_project(project)
-    Wally::Commands.add_project(project)
-  rescue Wally::ClientError => e
-    warn e.message
-    exit(1)
+    execute { Wally::Commands.add_project(project) }
   end
-
+  
+  desc 'remove_project NAME', 'Remove project'
+  def remove_project(project)
+    execute { Wally::Commands.remove_project(project) }
+  end
+  
   desc 'push PROJECT DIR', 'Push features from DIR to PROJECT'
   def push(project, dir)
-    Wally::Commands.push(project, dir, options)
-  rescue Wally::ClientError => e
-    puts "client error"
-    warn e.message
-    exit(1)
+    execute { Wally::Commands.push(project, dir, options) }
+  end
+  
+  no_tasks do
+    def execute(&blk)
+      yield
+    rescue Wally::ClientError => e
+      warn e.message
+      exit(1)
+    end
   end
 end
 
