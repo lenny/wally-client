@@ -28,7 +28,7 @@ module Wally
         end
       end
       
-      specify 'bundle includes .feature, .md, and .markdown files' do
+      specify '*.feature, *.md, and *.markdown files are included' do
         in_tmp_dir do |dir|
           make_file('features/a.feature')
           make_file('features/foo/b.feature')
@@ -43,6 +43,20 @@ module Wally
             files.should_not include('something.else')
           end
           
+          subject.execute
+        end
+      end
+      
+      specify '.nav file in top level features directory is included' do
+        in_tmp_dir do |dir|
+          make_file('features/.nav')
+    
+          subject.dir = 'features'
+
+          targz_util.should_receive(:pack) do |files|
+            files.should include('.nav')
+          end
+
           subject.execute
         end
       end

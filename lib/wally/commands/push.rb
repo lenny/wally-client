@@ -29,7 +29,7 @@ module Wally
       end
       
       def files
-        Dir[File.join('**', '*{feature,md,markdown}')]
+        Dir[File.join('**', '*{feature,md,markdown}')] + Dir['.nav']
       end
     end
   end
