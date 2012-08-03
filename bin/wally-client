@@ -7,9 +7,11 @@ require 'thor'
 require 'wally/commands'
 
 require 'yaml'
-require 'wally/config'
+require 'wally/client/config'
 
-Wally::Config.configure(YAML.load(File.read('wally.yml')))
+config_file = File.expand_path('./wally.yml')
+puts "using config file #{config_file}"
+Wally::Client::Config.configure(YAML.load(File.read(config_file)))
 
 class WallyClientCommand < Thor
   desc 'add_project NAME ', 'Add project'

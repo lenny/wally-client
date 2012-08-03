@@ -1,4 +1,4 @@
-require 'wally/config'
+require 'wally/client/config'
 require 'wally/rest_resource'
 require 'wally/client_error'
 
@@ -11,7 +11,7 @@ module Wally
       end
       
       def url
-        Wally::Config.url
+        Wally::Client::Config.url
       end
     end
   end
