@@ -10,6 +10,14 @@ require 'yaml'
 require 'wally/client/config'
 
 config_file = File.expand_path('./wally.yml')
+
+unless File.exists?(config_file)
+  warn "Error: #{config_file} not found"
+  example_file = File.join(File.dirname(__FILE__), 'wally.yml.example')
+  warn "See example wally.yml file below:\n\n#{File.read(example_file)}"
+  exit(1)
+end
+
 puts "using config file #{config_file}"
 Wally::Client::Config.configure(YAML.load(File.read(config_file)))
 
