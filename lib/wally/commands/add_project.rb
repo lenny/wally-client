@@ -10,7 +10,7 @@ module Wally
       end
 
       def execute
-        response = resource["projects/#{project}"].post(project)
+        response = resource.post("/projects/#{project}")
       rescue RestClient::Conflict
         raise ClientError, "Project \"#{project}\" already exists"
       end

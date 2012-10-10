@@ -10,7 +10,7 @@ module Wally
       end
 
       def execute
-        resource["projects/#{project}"].delete
+        resource.delete("projects/#{project}")
       end
     end
   end
